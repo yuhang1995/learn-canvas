@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>海滩日落</title>
+  <style>
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="myCanvas" width="800" height="400"></canvas>
+
+  <script>
+    // 获取canvas元素
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+
+    // 绘制背景天空渐变
+    var skyGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    skyGradient.addColorStop(0, "#fcecff");
+    skyGradient.addColorStop(1, "#4c3f6b");
+    ctx.fillStyle = skyGradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // 绘制云朵
+    ctx.fillStyle = "#ffffffcc";
+    ctx.beginPath();
+    ctx.arc(150, 100, 40, 0, 2 * Math.PI);
+    ctx.arc(200, 100, 50, 0, 2 * Math.PI);
+    ctx.arc(250, 100, 35, 0, 2 * Math.PI);
+    ctx.arc(280, 100, 30, 0, 2 * Math.PI);
+    ctx.arc(320, 100, 45, 0, 2 * Math.PI);
+    ctx.closePath();
+    ctx.fill();
+
+    // 绘制太阳
+    var sunGradient = ctx.createRadialGradient(
+      canvas.width / 2,
+      canvas.height / 2,
+      0,
+      canvas.width / 2,
+      canvas.height / 2,
+      canvas.height / 4
+    );
+    sunGradient.addColorStop(0, "#ffde00");
+    sunGradient.addColorStop(0.5, "#ff7f00");
+    sunGradient.addColorStop(1, "transparent");
+    ctx.fillStyle = sunGradient;
+    ctx.beginPath();
+    ctx.arc(
+      canvas.width / 2,
+      canvas.height / 2,
+      canvas.height / 4,
+      0,
+      2 * Math.PI
+    );
+    ctx.closePath();
+    ctx.fill();
+
+    // 绘制海滩
+    ctx.fillStyle = "#d2b48c";
+    ctx.fillRect(0, canvas.height / 2, canvas.width, canvas.height / 2);
+
+    // 绘制海浪
+    ctx.fillStyle = "#4c3f6b";
+    var waveOffset = 0;
+
+    function drawWaves() {
+      ctx.clearRect(0, canvas.height / 2, canvas.width, canvas.height / 2);
+      for (var i = 0; i < canvas.width; i += 10) {
+        var y =
+          canvas.height / 2 +
+          Math.sin((i + waveOffset) * 0.03) * 20 +
+          Math.sin((i + waveOffset) * 0.05) * 15;
+        ctx.beginPath();
+        ctx.moveTo(i, canvas.height / 2);
+        ctx.lineTo(i, y);
+        ctx.lineTo(i + 10, y);
+        ctx.lineTo(i + 10, canvas.height / 2);
+        ctx.closePath();
+        ctx.fill();
+      }
+      waveOffset += 5;
+      requestAnimationFrame(drawWaves);
+    }
+
+    // drawWaves();
+
+    // // 绘制海鸥
+    // ctx.fillStyle = "#ffffffcc";
+    // ctx.beginPath();
+    // ctx.moveTo(600, 150);
+    // ctx.lineTo(620, 130);
+    // ctx.lineTo(630, 140);
+    // ctx.lineTo(610, 160);
+    // ctx.closePath();
+    // ctx.fill();
+    // ctx.beginPath();
+    // ctx.moveTo(620, 130);
+    // ctx.lineTo(640, 110);
+    // ctx.lineTo(650, 120);
+    // ctx.lineTo(630, 140);
+    // ctx.closePath();
+    // ctx.fill();
+
+    // 绘制沙滩上的人物
+    // ctx.fillStyle = "#000000";
+    // ctx.beginPath();
+    // ctx.arc(400, 250, 10, 0, 2 * Math.PI);
+    // ctx.closePath();
+    // ctx.fill();
+    // ctx.beginPath();
+    // ctx.moveTo(400, 260);
+    // ctx.lineTo(390, 280);
+    // ctx.lineTo(410, 280);
+    // ctx.closePath();
+    // ctx.fill();
+    // ctx.beginPath();
+    // ctx.moveTo(400, 260);
+    // ctx.lineTo(400, 280);
+    // ctx.closePath();
+    // ctx.stroke();
+  </script>
+</body>
+</html>
