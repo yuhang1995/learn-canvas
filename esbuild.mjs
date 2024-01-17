@@ -64,7 +64,7 @@ await result.watch().then(res => {
 
 const serverResult = await result.serve({
     servedir: 'dist',
-    port: 3000,
+    port: 4000,
 })
 
 console.log(`ready: http://localhost:${serverResult.port}`)
